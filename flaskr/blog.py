@@ -4,6 +4,7 @@ from flask import (
 from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
+from flaskr.model import UserBlog
 from flaskr.repository import blog_repository, user_blog_repository
 
 bp = Blueprint("blog", __name__)
@@ -11,7 +12,7 @@ bp = Blueprint("blog", __name__)
 
 @bp.route("/")
 def index():
-    posts = user_blog_repository.all()
+    posts = user_blog_repository.fetch_all()
 
     return render_template("blog/index.html", posts=posts)
 
@@ -34,7 +35,7 @@ def create():
     return render_template("blog/create.html")
 
 
-def get_post(blog_id, check_author=True):
+def get_post(blog_id: int, check_author=True) -> UserBlog:
     posts = user_blog_repository.find_user_blog_by_blog_id(blog_id)
 
     if len(posts) == 0:
@@ -48,7 +49,7 @@ def get_post(blog_id, check_author=True):
 
 @bp.route("/<int:blog_id>/update", methods=("GET", "POST"))
 @login_required
-def update(blog_id):
+def update(blog_id: int):
     post = get_post(blog_id)
 
     if request.method == "POST":
@@ -68,8 +69,8 @@ def update(blog_id):
 
 @bp.route("/<int:blog_id>/delete", methods=("POST",))
 @login_required
-def delete(blog_id):
-    post = get_post(blog_id)
+def delete(blog_id: int):
+    get_post(blog_id)
     blog_repository.delete_by_blog_id(blog_id)
 
     return redirect(url_for("blog.index"))

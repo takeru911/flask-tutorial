@@ -23,10 +23,12 @@ def register():
         elif len(user_repository.find_user_by_name(username)) != 0:
             error = f"User {username} is already registered."
 
-        if error is None:
-            user_repository.register_user(username, password)
-            return redirect(url_for("auth.login"))
-        flash(error)
+        if error is not None:
+            flash(error)
+            return render_template("auth/register.html")
+
+        user_repository.register_user(username, password)
+        return redirect(url_for("auth.login"))
     return render_template("auth/register.html")
 
 
