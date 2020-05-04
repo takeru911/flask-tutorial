@@ -19,7 +19,7 @@ def find_user_blog_by_blog_id(blog_id: int) -> List[UserBlog]:
     ]
 
 
-def all() -> List[UserBlog]:
+def fetch_all() -> List[UserBlog]:
     result = query(
         """
         SELECT p.id as blog_id, title as blog_title, body as blog_body, created as blog_created,
