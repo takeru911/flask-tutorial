@@ -1,12 +1,17 @@
-FLASK_APP=flaskr
-FLASK_ENV=development
+BACKEND:=backend
+FRONTEND:=frontend
 
-run:
-	export FLASK_APP=$(FLASK_APP) && \
-  export FLASK_ENV=developemtn && \
-  flask run
+# BACK
 
-init-db:
-	export FLASK_APP=$(FLASK_APP) && \
-  export FLASK_ENV=developemtn && \
-  flask init-db
+run-bachend:
+	$(MAKE) -C $(BACNEND) run
+
+
+# FRONT
+
+run-frontend:
+	$(MAKE) -C $(FRONTEND) run
+
+build-frontend:
+	$(MAKE) -C $(FRONTEND) build
+
