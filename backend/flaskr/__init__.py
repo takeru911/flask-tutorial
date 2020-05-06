@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 from . import auth
 from . import blog
 from .repository import db
@@ -30,7 +30,9 @@ def create_app(test_config=None):
     # a simple page says hello
     @app.route("/hello")
     def hello():
-        return "Hello, World!"
+        return jsonify({
+            "value": "Hello, World!"
+        })
 
     db.init(app)
 
