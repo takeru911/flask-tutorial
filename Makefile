@@ -4,7 +4,7 @@ FRONTEND:=frontend
 # BACK
 
 run-bachend:
-	$(MAKE) -C $(BACNEND) run
+	$(MAKE) -C $(BACKEND) run
 
 
 # FRONT
