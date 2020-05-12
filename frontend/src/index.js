@@ -1,44 +1,45 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ReactDOM from 'react-dom';
+
+import Navbar from "./navbar"; import './navbar'
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
-
-const Navbar = () => {
-    const [userName, setUserName] = useState(null);
-
-    useEffect(() => {
-
-    })
-
+const Register = () => {
     return (
-        <ul>
-            {userName
-                ?
-                <div>
-                    <li><span>{userName}</span></li>
-                    <li><a href="/auth/logout">Log out</a> </li>
-                </div>
-                :
-                <div>
-                    <li><a href="/auth/register">Register</a></li>
-                    <li><a href="/auth/login">Log In</a></li>
-                </div>
-            }
-        </ul>
-    )
+        <div>
+            <header><h1>Register</h1></header>
+            <form method="post">
+                <label htmlFor="username">Username</label>
+                <input name="username" id="username" required/>
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" id="password" required/>
+                <input type="submit" value="Register"/>
+            </form>
+        </div>
+    );
 }
 
-ReactDOM.render(
-    <React.StrictMode>
-        <Navbar />
-    </React.StrictMode>,
-    document.getElementById('nav-bar')
-);
+const Index = () => {
+    return (
+        <div>
+            <header><h1>Posts</h1></header>
+        </div>
+    );
+}
 
 
 ReactDOM.render(
     <React.StrictMode>
+        <Router>
+            <Navbar />
+            <section className="content">
+                <Route exact path="/" component={Index}/>
+                <Route path="/register" component={Register}/>
+            </section>
+        </Router>
     </React.StrictMode>,
     document.getElementById('content')
 );
