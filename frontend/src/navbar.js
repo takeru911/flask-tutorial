@@ -11,7 +11,7 @@ const Navbar = () => {
     return (
         <div id="nav-bar">
             <nav>
-                <h1>Flaskr</h1>
+                <h1><Link to="/">Flaskr</Link></h1>
                 <ul>
                     {userName
                         ?
